@@ -153,7 +153,7 @@ const JournalingAnalysis: React.FC = () => {
             </ol>
             <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
               <p className="text-base text-gray-800 mb-2">
-                <strong>⚠️ Si hay un fallo entre estas operaciones:</strong>
+                <strong>Consecuencias de un fallo durante estas operaciones:</strong>
               </p>
               <ul className="list-disc list-inside space-y-1 text-base text-gray-700">
                 <li>El sistema puede pensar que un bloque está libre cuando realmente tiene datos</li>
@@ -177,7 +177,7 @@ const JournalingAnalysis: React.FC = () => {
                   S₀ → S₀.₁ → S₀.₂ → S₀.₃ → S₁
                 </div>
                 <p className="text-base text-red-600 mt-2 font-medium">
-                  ❌ Si falla en cualquier punto intermedio → Estado inconsistente Sᵢ
+                  Si falla en cualquier punto intermedio resulta en estado inconsistente Sᵢ
                 </p>
               </div>
 
@@ -190,7 +190,7 @@ const JournalingAnalysis: React.FC = () => {
                   <div>4. Journal Clear: Limpiar entrada</div>
                 </div>
                 <p className="text-base text-green-600 mt-2 font-medium">
-                  ✅ Sistema siempre en estado consistente (S₀ o S₁)
+                  Sistema siempre en estado consistente (S₀ o S₁)
                 </p>
               </div>
 
@@ -223,7 +223,7 @@ const JournalingAnalysis: React.FC = () => {
                     <div className="w-16 bg-green-400 p-2 rounded text-center font-semibold text-gray-900">Disco</div>
                   </div>
                   <div className="text-center text-red-700 font-bold mt-4 text-base">
-                    ⚡ FALLO = 💥 CORRUPCIÓN
+                    FALLO = CORRUPCIÓN
                   </div>
                 </div>
               </div>
@@ -244,8 +244,8 @@ const JournalingAnalysis: React.FC = () => {
                     <div className="w-12 bg-green-400 p-2 rounded text-center text-xs font-semibold text-gray-900">Disco</div>
                   </div>
                   <div className="mt-4 space-y-1">
-                    <div className="text-center text-green-700 text-base">⚡ FALLO → Rollback/Replay</div>
-                    <div className="text-center text-green-700 font-bold text-base">✅ Sistema Consistente</div>
+                    <div className="text-center text-green-700 text-base">FALLO → Rollback/Replay</div>
+                    <div className="text-center text-green-700 font-bold text-base">Sistema Consistente</div>
                   </div>
                 </div>
               </div>
@@ -371,9 +371,9 @@ const JournalingAnalysis: React.FC = () => {
                         : step.id < simulationStep
                         ? 'bg-green-500 text-white'
                         : 'bg-gray-200 text-gray-600'
-                    } ${step.id === failurePoint ? 'ring-4 ring-red-500' : ''}`}
+                    } ${step.id === failurePoint ? 'ring-4 ring-red-500 bg-red-600 text-white' : ''}`}
                   >
-                    {step.id === failurePoint ? '⚡' : step.id + 1}
+                    {step.id + 1}
                   </div>
                 ))}
               </div>
@@ -525,7 +525,7 @@ const JournalingAnalysis: React.FC = () => {
                 </div>
               </div>
               <div className="border-2 border-green-400 p-5 rounded-xl bg-green-50">
-                <h4 className="font-semibold mb-3 text-gray-900 text-lg">Ordered Mode ⭐</h4>
+                <h4 className="font-semibold mb-3 text-gray-900 text-lg">Ordered Mode (Recomendado)</h4>
                 <div className="text-base space-y-2 text-gray-800">
                   <div>1. Datos: 1000 × 10ms = 10s</div>
                   <div>2. Journal: 1000 × 2ms = 2s</div>
