@@ -69,8 +69,6 @@ commit_parsers = [
   { message = "^config", group = "Configuration" },
 ]
 
-# Proteger commits de romper compatibilidad
-protect_breaking_commits = false
 # Filtrar commits por el título de commit
 filter_commits = false
 # Glob pattern para filtrar tags
