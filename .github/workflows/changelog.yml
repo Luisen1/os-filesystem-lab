@@ -33,8 +33,9 @@ jobs:
         run: |
           echo "Generating changelog..."
           rm -f CHANGELOG.md
-          git-cliff --config cliff.toml --output CHANGELOG.md --verbose --unreleased
+          git-cliff --config cliff.toml --output CHANGELOG.md --verbose
           echo "Changelog generated successfully"
+          echo "=== CHANGELOG CONTENT ==="
           cat CHANGELOG.md
           
       - name: Check for changes
