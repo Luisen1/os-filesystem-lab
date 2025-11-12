@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "Generating changelog..."
           rm -f CHANGELOG.md
-          git-cliff --config cliff.toml --output CHANGELOG.md --verbose --tag-pattern ".*"
+          git-cliff --config cliff.toml --output CHANGELOG.md --verbose --unreleased
           echo "Changelog generated successfully"
           cat CHANGELOG.md
           
