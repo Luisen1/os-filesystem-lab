@@ -71,11 +71,11 @@ commit_parsers = [
 
 # Filtrar commits por el título de commit
 filter_commits = false
-# Glob pattern para filtrar tags
-tag_pattern = "v[0-9].*"
+# Glob pattern para filtrar tags (deshabilitado para incluir todos los commits)
+# tag_pattern = "v[0-9].*"
 
 # Regex para saltar tags
-skip_tags = "v0.1.0-beta.1"
+# skip_tags = "v0.1.0-beta.1"
 # Regex para ignorar tags
 ignore_tags = ""
 # Ordenar los tags de más antiguo a más nuevo

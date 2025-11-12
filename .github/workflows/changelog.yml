@@ -32,8 +32,10 @@ jobs:
       - name: Generate Changelog
         run: |
           echo "Generating changelog..."
-          git-cliff --config cliff.toml --output CHANGELOG.md --verbose
+          rm -f CHANGELOG.md
+          git-cliff --config cliff.toml --output CHANGELOG.md --verbose --tag-pattern ".*"
           echo "Changelog generated successfully"
+          cat CHANGELOG.md
           
       - name: Check for changes
         id: check_changes
