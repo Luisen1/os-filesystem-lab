@@ -69,4 +69,4 @@ Las contribuciones son bienvenidas. Si deseas contribuir, por favor abre un issu
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT.
+Este proyecto está bajo la Licencia MIT. 
