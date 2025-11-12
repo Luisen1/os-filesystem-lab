@@ -27,7 +27,7 @@ jobs:
           tar -xzf git-cliff.tar.gz
           sudo mv git-cliff-1.4.0/git-cliff /usr/local/bin/
           chmod +x /usr/local/bin/git-cliff
-          git-cliff --vers|ion
+          git-cliff --version
           
       - name: Generate Changelog
         run: |
