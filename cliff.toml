@@ -1,0 +1,93 @@
+# Configuración de git-cliff para generación de CHANGELOG
+# Documentación: https://git-cliff.org/docs/configuration
+
+[changelog]
+# Encabezado del changelog
+header = """
+# Changelog
+
+Todos los cambios notables en este proyecto serán documentados en este archivo.
+
+El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+"""
+# Plantilla para el cuerpo del changelog
+body = """
+{% if version %}\
+    ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}\
+    ## [Unreleased]
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | striptags | trim | upper_first }}
+    {% for commit in commits %}
+        - {% if commit.scope %}**{{ commit.scope }}**: {% endif %}{{ commit.message | upper_first }}\
+          {% if commit.breaking %} [**BREAKING**]{% endif %} ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/commit/{{ commit.id }}))
+    {% endfor %}
+{% endfor %}\n
+"""
+# Plantilla para el pie del changelog
+footer = """
+<!-- generado por git-cliff -->
+"""
+# Eliminar las entradas anteriores del changelog
+trim = false
+# Postprocesadores
+postprocessors = [
+  # { pattern = '<REPO>', replace = "https://github.com/orhun/git-cliff" }, # reemplazar el nombre del repositorio
+]
+
+[git]
+# Parsear los commits basados en conventional commits
+conventional_commits = true
+# Filtrar commits inconvencionales
+filter_unconventional = false
+# Procesar cada línea de un mensaje de commit como un commit individual
+split_commits = false
+# Proteger commits que rompen compatibilidad
+protect_breaking_commits = false
+# Ordenar los commits de más antiguo a más nuevo
+sort_commits = "oldest"
+
+# Regex para parsear y agrupar commits
+commit_parsers = [
+  { message = "^feat", group = "✨ Features" },
+  { message = "^fix", group = "🐛 Bug Fixes" },
+  { message = "^doc", group = "📚 Documentation" },
+  { message = "^perf", group = "⚡ Performance" },
+  { message = "^refactor", group = "♻️ Refactor" },
+  { message = "^style", group = "💄 Styling" },
+  { message = "^test", group = "🧪 Testing" },
+  { message = "^chore\\(release\\): prepare for", skip = true },
+  { message = "^chore\\(deps.*\\)", skip = true },
+  { message = "^chore\\(pr\\)", skip = true },
+  { message = "^chore\\(pull\\)", skip = true },
+  { message = "^chore|^ci", group = "⚙️ Miscellaneous Tasks" },
+  { body = ".*security", group = "🔒 Security" },
+  { message = "^revert", group = "◀️ Revert" },
+  { message = "^config", group = "🔧 Configuration" },
+]
+
+# Proteger commits de romper compatibilidad
+protect_breaking_commits = false
+# Filtrar commits por el título de commit
+filter_commits = false
+# Glob pattern para filtrar tags
+tag_pattern = "v[0-9].*"
+
+# Regex para saltar tags
+skip_tags = "v0.1.0-beta.1"
+# Regex para ignorar tags
+ignore_tags = ""
+# Ordenar los tags de más antiguo a más nuevo
+topo_order = false
+# Ordenar los tags topológicamente
+sort_tags = "oldest"
+
+# Limite del changelog
+limit_commits = false
+
+[remote.github]
+owner = "Luisen1"
+repo = "os-filesystem-lab"
