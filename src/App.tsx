@@ -2,162 +2,160 @@ import React, { useState } from 'react';
 import JournalingAnalysis from './components/JournalingAnalysis';
 import ReadOnlyAnalysis from './components/ReadOnlyAnalysis';
 import ForensicsPanel from './components/ForensicsPanel';
-import { BookOpen, Shield, Search, ChevronRight, HardDrive } from 'lucide-react';
+import { BookOpen, Shield, Search, HardDrive, Home, Users } from 'lucide-react';
 
 type MenuOption = 'home' | 'journaling' | 'readonly' | 'forensics';
 
 const App: React.FC = () => {
-  const [activeView, setActiveView] = useState<MenuOption>('home');
+  const [activeView, setActiveView] = useState<MenuOption>('journaling');
 
   const menuItems = [
     {
+      id: 'home' as MenuOption,
+      title: 'Inicio',
+      icon: Home,
+    },
+    {
       id: 'journaling' as MenuOption,
-      title: 'Journaling File Systems',
-      description: 'Análisis de sistemas de archivos con journaling (ext3/ext4)',
+      title: 'Journaling FS',
       icon: BookOpen,
-      color: 'from-blue-600 to-blue-800',
-      hoverColor: 'hover:from-blue-700 hover:to-blue-900',
     },
     {
       id: 'readonly' as MenuOption,
-      title: 'Read-Only File Systems',
-      description: 'Sistemas de archivos de solo lectura (SquashFS, ISO 9660)',
+      title: 'Read-Only FS',
       icon: Shield,
-      color: 'from-gray-600 to-gray-800',
-      hoverColor: 'hover:from-gray-700 hover:to-gray-900',
     },
     {
       id: 'forensics' as MenuOption,
       title: 'Forensic Analysis',
-      description: 'Análisis forense y recuperación de archivos eliminados',
       icon: Search,
-      color: 'from-slate-600 to-slate-800',
-      hoverColor: 'hover:from-slate-700 hover:to-slate-900',
     },
   ];
 
-  if (activeView === 'journaling') {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <button
-          onClick={() => setActiveView('home')}
-          className="m-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center space-x-2"
-        >
-          <ChevronRight className="w-4 h-4 rotate-180" />
-          <span>Volver al Menú</span>
-        </button>
-        <div className="container mx-auto px-4 pb-8">
-          <JournalingAnalysis />
-        </div>
-      </div>
-    );
-  }
-
-  if (activeView === 'readonly') {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <button
-          onClick={() => setActiveView('home')}
-          className="m-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center space-x-2"
-        >
-          <ChevronRight className="w-4 h-4 rotate-180" />
-          <span>Volver al Menú</span>
-        </button>
-        <div className="container mx-auto px-4 pb-8">
-          <ReadOnlyAnalysis />
-        </div>
-      </div>
-    );
-  }
-
-  if (activeView === 'forensics') {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <button
-          onClick={() => setActiveView('home')}
-          className="m-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center space-x-2"
-        >
-          <ChevronRight className="w-4 h-4 rotate-180" />
-          <span>Volver al Menú</span>
-        </button>
-        <div className="container mx-auto px-4 pb-8">
-          <ForensicsPanel />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-slate-800 to-blue-900 shadow-2xl">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="bg-blue-600 p-3 rounded-lg">
-              <HardDrive className="w-8 h-8 text-white" />
+    <div className="flex h-screen bg-gray-50">
+      {/* Sidebar */}
+      <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
+        {/* Logo/Header */}
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center space-x-3">
+            <div className="bg-blue-600 p-2 rounded-lg">
+              <HardDrive className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white">File System Analysis Lab</h1>
-              <p className="text-blue-200 mt-1">Laboratorio de Sistemas Operativos - Análisis de Sistemas de Archivos</p>
+              <h1 className="text-lg font-bold text-gray-900">FS Lab</h1>
+              <p className="text-xs text-gray-500">Sistemas Operativos</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 p-4">
+          <div className="space-y-1">
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveView(item.id)}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                    activeView === item.id
+                      ? 'bg-blue-50 text-blue-700 font-medium'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
+                  <span>{item.title}</span>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-gray-200">
+          <div className="flex items-center space-x-3 px-2">
+            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+              <Users className="w-4 h-4 text-gray-600" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-900">Laboratorio</p>
+              <p className="text-xs text-gray-500">8vo Semestre</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-3">Selecciona un Módulo de Análisis</h2>
-          <p className="text-gray-300 text-lg">Explora diferentes aspectos de los sistemas de archivos modernos</p>
-        </div>
+      <div className="flex-1 overflow-auto">
+        {activeView === 'home' && (
+          <div className="p-8">
+            <div className="max-w-4xl">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                File System Analysis Laboratory
+              </h2>
+              <p className="text-lg text-gray-600 mb-8">
+                Laboratorio interactivo para el análisis de sistemas de archivos modernos
+              </p>
 
-        {/* Menu Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveView(item.id)}
-                className={`bg-gradient-to-br ${item.color} ${item.hoverColor} p-8 rounded-2xl shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-blue-500/50 text-left group relative overflow-hidden`}
-              >
-                {/* Background decoration */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-                
-                {/* Icon */}
-                <div className="bg-white bg-opacity-10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:bg-opacity-20 transition-all">
-                  <Icon className="w-8 h-8 text-white" />
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                    <BookOpen className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Journaling File Systems
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Análisis de sistemas de archivos con journaling como ext3/ext4
+                  </p>
                 </div>
 
-                {/* Content */}
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:translate-x-1 transition-transform">
-                  {item.title}
-                </h3>
-                <p className="text-gray-200 text-sm leading-relaxed mb-4">
-                  {item.description}
-                </p>
-
-                {/* Arrow indicator */}
-                <div className="flex items-center text-white font-medium group-hover:translate-x-2 transition-transform">
-                  <span className="text-sm">Explorar</span>
-                  <ChevronRight className="w-5 h-5 ml-2" />
+                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                    <Shield className="w-6 h-6 text-gray-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Read-Only Systems
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Sistemas de archivos de solo lectura: SquashFS, ISO 9660
+                  </p>
                 </div>
-              </button>
-            );
-          })}
-        </div>
 
-        {/* Footer info */}
-        <div className="mt-16 text-center">
-          <div className="bg-slate-800 bg-opacity-50 backdrop-blur-sm rounded-xl p-6 max-w-3xl mx-auto border border-gray-700">
-            <h3 className="text-xl font-bold text-white mb-3">Acerca de este Laboratorio</h3>
-            <p className="text-gray-300 leading-relaxed">
-              Este laboratorio interactivo te permite explorar tres aspectos fundamentales de los sistemas de archivos:
-              el journaling para garantizar la integridad de datos, los sistemas de solo lectura para distribución eficiente,
-              y las técnicas forenses para recuperación y análisis de información.
-            </p>
+                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-4">
+                    <Search className="w-6 h-6 text-slate-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Forensic Analysis
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Análisis forense y recuperación de archivos eliminados
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+
+        {activeView === 'journaling' && (
+          <div className="p-8">
+            <JournalingAnalysis />
+          </div>
+        )}
+
+        {activeView === 'readonly' && (
+          <div className="p-8">
+            <ReadOnlyAnalysis />
+          </div>
+        )}
+
+        {activeView === 'forensics' && (
+          <div className="p-8">
+            <ForensicsPanel />
+          </div>
+        )}
       </div>
     </div>
   );

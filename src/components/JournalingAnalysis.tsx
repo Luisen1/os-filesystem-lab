@@ -74,24 +74,15 @@ const JournalingAnalysis: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 shadow-xl rounded-2xl">
-        <div className="p-8">
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="bg-white bg-opacity-20 p-3 rounded-lg backdrop-blur-sm">
-              <BookOpen className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h2 className="text-4xl font-bold text-white mb-2">Journaling File Systems</h2>
-              <p className="text-blue-100 text-lg">
-                Análisis completo de sistemas de archivos con journaling: teoría, tipos y experimentación
-              </p>
-            </div>
-          </div>
-        </div>
+      <div className="mb-6">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">Journaling File Systems</h2>
+        <p className="text-gray-600">
+          Análisis completo de sistemas de archivos con journaling: teoría, tipos y experimentación
+        </p>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex space-x-2 bg-white rounded-xl p-2 shadow-lg border border-gray-200">
+      <div className="flex space-x-2 bg-white rounded-xl p-2 shadow border border-gray-200">
         {[
           { id: 'theory', label: 'Teoría', icon: BookOpen },
           { id: 'types', label: 'Tipos de Journal', icon: Database },
