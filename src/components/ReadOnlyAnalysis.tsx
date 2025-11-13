@@ -69,33 +69,35 @@ const ReadOnlyAnalysis: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Read-Only File Systems</h2>
-        <p className="text-gray-600">
-          Sistemas de archivos inmutables: teoría, implementación y análisis de rendimiento
+      <div className="mb-8 animate-slide-up">
+        <h2 className="text-4xl font-display font-bold text-gray-900 mb-3 tracking-tight">
+          Read-Only <span className="text-gradient">File Systems</span>
+        </h2>
+        <p className="text-lg text-gray-600 font-light leading-relaxed">
+          Sistemas de archivos inmutables: teoría, implementación y análisis de rendimiento en producción
         </p>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex space-x-2 bg-white rounded-xl p-2 shadow border border-gray-200">
+      <div className="flex space-x-3 bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-soft border border-gray-100 animate-fade-in">
         {[
-          { id: 'theory', label: 'Teoría', icon: BookOpen },
-          { id: 'types', label: 'Tipos', icon: Database },
+          { id: 'theory', label: 'Fundamentos', icon: BookOpen },
+          { id: 'types', label: 'Comparativa', icon: BarChart3 },
           { id: 'squashfs', label: 'SquashFS', icon: Archive },
-          { id: 'performance', label: 'Rendimiento', icon: BarChart3 },
+          { id: 'performance', label: 'Performance', icon: Zap },
         ].map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => setActiveTab(id as any)}
-            className={`flex items-center space-x-2 px-6 py-3 font-medium transition-all rounded-lg flex-1 justify-center ${
+            className={`flex items-center space-x-2.5 px-6 py-3.5 font-semibold transition-all rounded-xl flex-1 justify-center group ${
               activeTab === id
-                ? 'bg-gray-800 text-white shadow-md'
-                : 'text-gray-700 hover:bg-gray-100'
+                ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-soft'
+                : 'text-gray-700 hover:bg-gray-50 hover:shadow-inner-soft'
             }`}
           >
-            <Icon className="w-5 h-5" />
+            <Icon className={`w-5 h-5 transition-transform ${activeTab !== id ? 'group-hover:scale-110' : ''}`} />
             <span>{label}</span>
           </button>
         ))}
@@ -103,49 +105,65 @@ const ReadOnlyAnalysis: React.FC = () => {
 
       {/* Theory Tab */}
       {activeTab === 'theory' && (
-        <div className="space-y-6">
+        <div className="space-y-6 animate-fade-in">
           {/* Fundamento Teórico */}
-          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <div className="flex items-center space-x-3 mb-4">
-              <BookOpen className="w-6 h-6 text-gray-700" />
-              <h3 className="text-2xl font-bold text-gray-900">¿Qué es un Sistema de Archivos Read-Only?</h3>
-            </div>
-            <p className="text-gray-700 mb-4 text-lg leading-relaxed">
-              Un <strong>filesystem read-only</strong> es aquel que <strong>no permite modificaciones</strong> después 
-              de su creación. Los datos se escriben una sola vez durante la construcción de la imagen y posteriormente 
-              solo pueden ser leídos.
-            </p>
-            <div className="bg-gray-50 border-l-4 border-gray-500 p-4 rounded-lg">
-              <p className="text-base text-gray-800 leading-relaxed">
-                <strong>Analogía:</strong> Es como un libro publicado vs un cuaderno:<br />
-                <span className="ml-4">• <strong>Cuaderno (Read-Write):</strong> Puedes escribir, borrar, modificar páginas</span><br />
-                <span className="ml-4">• <strong>Libro (Read-Only):</strong> Solo puedes leer, no modificar el contenido</span>
+          <div className="card group">
+            <div className="p-8">
+              <div className="flex items-center space-x-3 mb-5">
+                <div className="p-2 bg-gray-100 rounded-xl group-hover:bg-gray-200 transition-colors">
+                  <BookOpen className="w-7 h-7 text-gray-700" />
+                </div>
+                <h3 className="text-3xl font-display font-bold text-gray-900">¿Qué es Read-Only?</h3>
+              </div>
+              <p className="text-gray-700 mb-5 text-lg leading-relaxed">
+                Un <strong className="text-gray-900">filesystem read-only</strong> es aquel que <strong>no permite modificaciones</strong> después 
+                de su creación. Los datos se escriben una sola vez durante la construcción de la imagen y posteriormente 
+                solo pueden ser leídos.
               </p>
+              <div className="bg-gradient-to-r from-gray-50 to-blue-50/30 border-l-4 border-gray-600 p-5 rounded-xl shadow-inner-soft">
+                <p className="text-base text-gray-800 leading-relaxed">
+                  <strong className="text-gray-900">💡 Analogía:</strong> Es como un libro publicado vs un cuaderno:<br />
+                  <span className="ml-6 block mt-3 space-y-2">
+                    <span className="flex items-center space-x-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                      <span><strong>Cuaderno (Read-Write):</strong> Puedes escribir, borrar, modificar páginas</span>
+                    </span>
+                    <span className="flex items-center space-x-2">
+                      <span className="w-2 h-2 rounded-full bg-gray-600"></span>
+                      <span><strong>Libro (Read-Only):</strong> Solo puedes leer, no modificar el contenido</span>
+                    </span>
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Problema que Resuelve */}
-          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <div className="flex items-center space-x-3 mb-4">
-              <Shield className="w-6 h-6 text-red-600" />
-              <h3 className="text-2xl font-bold text-gray-900">Problemas que Resuelve</h3>
-            </div>
+          <div className="card group">
+            <div className="p-8">
+              <div className="flex items-center space-x-3 mb-5">
+                <div className="p-2 bg-red-100 rounded-xl group-hover:bg-red-200 transition-colors">
+                  <Shield className="w-7 h-7 text-red-600" />
+                </div>
+                <h3 className="text-3xl font-display font-bold text-gray-900">Problemas que Resuelve</h3>
+              </div>
             
-            <div className="mb-4">
-              <h4 className="font-semibold text-lg text-gray-900 mb-3">Desafíos en Sistemas Tradicionales:</h4>
-              <div className="grid md:grid-cols-2 gap-3">
-                {[
-                  'Modificaciones accidentales de archivos críticos',
-                  'Malware que modifica ejecutables',
-                  'Corrupción de datos por fallos de hardware',
-                  'Desperdicio de espacio en archivos estáticos',
-                  'Inconsistencia en despliegues múltiples',
-                ].map((problem, idx) => (
-                  <div key={idx} className="flex items-start space-x-2 text-gray-700">
-                    <span className="text-red-500 font-bold">✗</span>
-                    <span className="text-base">{problem}</span>
-                  </div>
-                ))}
+              <div className="mb-6">
+                <h4 className="font-display font-semibold text-xl text-gray-900 mb-4">Desafíos en Sistemas Tradicionales:</h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {[
+                    'Modificaciones accidentales de archivos críticos',
+                    'Malware que modifica ejecutables',
+                    'Corrupción de datos por fallos de hardware',
+                    'Desperdicio de espacio en archivos estáticos',
+                    'Inconsistencia en despliegues múltiples',
+                  ].map((problem, idx) => (
+                    <div key={idx} className="flex items-start space-x-3 text-gray-700 p-3 rounded-lg hover:bg-red-50 transition-colors">
+                      <span className="text-red-500 font-bold text-xl">✗</span>
+                      <span className="text-base leading-relaxed">{problem}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 

@@ -91,17 +91,19 @@ const ForensicsPanel: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">File System Forensics</h2>
-        <p className="text-gray-600">
-          Análisis forense de sistemas de archivos: recuperación de datos borrados y análisis de evidencia digital
+      <div className="mb-8 animate-slide-up">
+        <h2 className="text-4xl font-display font-bold text-gray-900 mb-3 tracking-tight">
+          File System <span className="text-gradient">Forensics</span>
+        </h2>
+        <p className="text-lg text-gray-600 font-light leading-relaxed">
+          Análisis forense profesional: recuperación de datos borrados, timeline reconstruction y técnicas avanzadas de carving
         </p>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex space-x-2 bg-white rounded-xl p-2 shadow border border-gray-200">
+      <div className="flex space-x-3 bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-soft border border-gray-100 animate-fade-in">
         {[
           { id: 'theory', label: 'Fundamentos', icon: BookOpen },
           { id: 'lifecycle', label: 'Ciclo de Vida', icon: Activity },
@@ -111,13 +113,13 @@ const ForensicsPanel: React.FC = () => {
           <button
             key={id}
             onClick={() => setActiveTab(id as any)}
-            className={`flex items-center space-x-2 px-6 py-3 font-medium transition-all rounded-lg flex-1 justify-center ${
+            className={`flex items-center space-x-2.5 px-6 py-3.5 font-semibold transition-all rounded-xl flex-1 justify-center group ${
               activeTab === id
-                ? 'bg-slate-800 text-white shadow-md'
-                : 'text-gray-700 hover:bg-gray-100'
+                ? 'bg-gradient-to-r from-purple-600 to-accent-600 text-white shadow-soft'
+                : 'text-gray-700 hover:bg-gray-50 hover:shadow-inner-soft'
             }`}
           >
-            <Icon className="w-5 h-5" />
+            <Icon className={`w-5 h-5 transition-transform ${activeTab !== id ? 'group-hover:scale-110' : ''}`} />
             <span>{label}</span>
           </button>
         ))}

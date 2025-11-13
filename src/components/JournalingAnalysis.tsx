@@ -72,33 +72,35 @@ const JournalingAnalysis: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Journaling File Systems</h2>
-        <p className="text-gray-600">
-          Análisis completo de sistemas de archivos con journaling: teoría, tipos y experimentación
+      <div className="mb-8 animate-slide-up">
+        <h2 className="text-4xl font-display font-bold text-gray-900 mb-3 tracking-tight">
+          Journaling <span className="text-gradient">File Systems</span>
+        </h2>
+        <p className="text-lg text-gray-600 font-light leading-relaxed">
+          Análisis completo de sistemas con journaling: teoría, tipos, simulaciones y benchmarks de rendimiento
         </p>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex space-x-2 bg-white rounded-xl p-2 shadow border border-gray-200">
+      <div className="flex space-x-3 bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-soft border border-gray-100 animate-fade-in">
         {[
-          { id: 'theory', label: 'Teoría', icon: BookOpen },
-          { id: 'types', label: 'Tipos de Journal', icon: Database },
+          { id: 'theory', label: 'Fundamentos', icon: BookOpen },
+          { id: 'types', label: 'Modos Journal', icon: Database },
           { id: 'demo', label: 'Simulación', icon: Terminal },
-          { id: 'performance', label: 'Rendimiento', icon: Zap },
+          { id: 'performance', label: 'Performance', icon: Zap },
         ].map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => setActiveTab(id as any)}
-            className={`flex items-center space-x-2 px-6 py-3 font-medium transition-all rounded-lg flex-1 justify-center ${
+            className={`flex items-center space-x-2.5 px-6 py-3.5 font-semibold transition-all rounded-xl flex-1 justify-center group ${
               activeTab === id
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-gray-700 hover:bg-gray-100'
+                ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-soft'
+                : 'text-gray-700 hover:bg-gray-50 hover:shadow-inner-soft'
             }`}
           >
-            <Icon className="w-5 h-5" />
+            <Icon className={`w-5 h-5 transition-transform ${activeTab !== id ? 'group-hover:scale-110' : ''}`} />
             <span>{label}</span>
           </button>
         ))}
@@ -106,10 +108,16 @@ const JournalingAnalysis: React.FC = () => {
 
       {/* Theory Tab */}
       {activeTab === 'theory' && (
-        <div className="space-y-6">
+        <div className="space-y-6 animate-fade-in">
           {/* Fundamento Teórico */}
-          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <div className="flex items-center space-x-3 mb-4">
+          <div className="card group">
+            <div className="p-8">
+              <div className="flex items-center space-x-3 mb-5">
+                <div className="p-2 bg-primary-100 rounded-xl group-hover:bg-primary-200 transition-colors">
+                  <BookOpen className="w-7 h-7 text-primary-600" />
+                </div>
+                <h3 className="text-3xl font-display font-bold text-gray-900">¿Qué es Journaling?</h3>
+              </div>
               <BookOpen className="w-6 h-6 text-blue-600" />
               <h3 className="text-2xl font-bold text-gray-900">¿Qué es el Journaling?</h3>
             </div>
