@@ -5,6 +5,7 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+<<<<<<< HEAD
 ## [Unreleased]
 
 ### Added
@@ -101,3 +102,6 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - **Build Setup** ([54cff4c](https://github.com/Luisen1/os-filesystem-lab/commit/54cff4c)): Setup build and styling configuration
   - **Project Init** ([bded430](https://github.com/Luisen1/os-filesystem-lab/commit/bded430)): Initialize project with dependencies
 
+=======
+<!-- generado por git-cliff -->
+>>>>>>> c107aa3e0e5d0c99eaf37ca620b98fb194c84d5d
